@@ -1,0 +1,148 @@
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	const int ARRAY_LENGTH = 12;
+
+	int values[ARRAY_LENGTH];
+
+	int option, temp, largest, smallest, occurvalue, total = 0, scalefactor;
+	double sum = 0, count = 0, average;
+	
+	int end = ARRAY_LENGTH - 1;
+	
+
+	cout << "\tPlease enter 12 numbers\n\n";
+	for (int i = 0; i < ARRAY_LENGTH; i++)
+	{
+		cin >> values[i];
+	}
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	do
+	{
+		cout << "\n\n\tPlease choose an option: \n\n";
+		cout << "\t1. Display \n";
+		cout << "\t2. Total \n";
+		cout << "\t3. Average \n";
+		cout << "\t4. Largest \n";
+		cout << "\t5. Smallest \n";
+		cout << "\t6. Occurrences of value \n";
+		cout << "\t7. Scale up \n";
+		cout << "\t8. Reverse \n";
+		cout << "\t9. Zero base \n\n";
+		cout << "\t10. Exit \n";
+	
+		cin >> option;
+
+		cout << endl << endl;
+
+		switch (option)
+		{
+		case 1:
+			cout << "\t\tDisplaying all of the values in the collection:\n\n";
+			for (int n = 0; n < ARRAY_LENGTH; ++n)
+			{
+				cout << values[n] << " ";
+			}
+			break;
+		case 2:
+		case 3:
+			for (int n : values)
+			{
+				sum += n;
+				++count;
+			}
+			if (option == 2) 
+			{
+				cout << "\t\tCalculating the total of all the values in the collection:\n\n";
+				cout << sum;
+			}
+			else
+			{
+				cout << "\t\tCalculating the average of all the values in the collection:\n\n";
+				average = sum / count;
+				cout << average;
+			}
+			break;
+		case 4:
+			cout << "\t\tOutputting the largest value of all the values in the collection\n\n";
+			largest = values[0];
+			for (int i = 1; i < ARRAY_LENGTH; i++)
+			{
+				if (largest < values[i])
+					largest = values[i];
+			}
+			cout << largest;
+			break;
+		case 5:
+		case 9:
+			smallest = values[0];
+			for (int i = 1; i < ARRAY_LENGTH; i++)
+			{
+				if (smallest > values[i])
+					smallest = values[i];
+			}
+			if (option == 5) 
+			{
+				cout << "\t\tOutputting the smallest value of all the values in the collection\n\n";
+				cout << smallest;
+			}
+			else
+			{
+				cout << "\t\tAdjusting all of the values in the collection so that the smallest value will be zero\n\n";
+				for (int i = 0; i < ARRAY_LENGTH; i++)
+				{
+					values[i] -= smallest;
+					cout << values[i] << " ";
+				}
+			}
+			break;
+		case 6:
+			cout << "\t\tPlease enter the number you want to see the occurences for:\n\n";
+			cin >> occurvalue;
+			cout << "\t\tOutputting the number of occurrences of " << occurvalue << " in the collection\n\n";
+			for (int i = 0; i < 12; i++)
+			{
+				if (values[i] == occurvalue)
+					total++;
+			}
+			cout << total;
+			break;
+		case 7:
+			cout << "\t\tPlease enter a number to be used as the scale factor:\n\n";
+			cin >> scalefactor;
+			cout << "\t\tMultiplying each value in the collection by " << scalefactor << endl << endl;
+			for (int i = 0; i < 12; i++)
+			{
+				values[i] *= scalefactor; 
+				cout << values[i] << " ";
+			}
+			break;
+		case 8:
+			cout << "\t\tRearranging the contents of the collection in reverse order:\n\n";
+			for (int i = 0; i < ARRAY_LENGTH / 2; i++)
+			{
+				temp = values[i];
+				values[i] = values[end];
+				values[end] = temp;
+				end--;
+			}
+			for (int i = 0; i < ARRAY_LENGTH; i++)
+			{
+				cout << values[i] << " ";
+			}
+			break;
+		case 10:
+			break;
+		default:
+			cout << "Invalid option\n";
+		}
+	} while (option != 10);
+
+	return 0;
+}
